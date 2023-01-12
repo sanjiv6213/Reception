@@ -2,7 +2,7 @@ from __future__ import print_function
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 
-SERVICE_ACCOUNT_FILE = 'key.json'
+SERVICE_ACCOUNT_FILE = 'credentials.json'
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
@@ -63,6 +63,6 @@ def email_list():
                 ids.append(each[15])
         return ids
 
-a=[[1,2,3]]
-# print(create())
-sheet_function(a,create())
+# a=[[1,2,3]]
+# # print(create())
+# sheet_function(a,create())

@@ -172,7 +172,7 @@
 <label for="inputState">Picture Location</label>
 <select name="Pic_loc" id = "Pic_loc" class="form-control" onchange="inputValue(event)">
   <option selected>Choose...</option>
-  <option value="/home/sanjiv/Reception_web/Final_website">Default</option>
+  <option value="/home/kishore/Reception/Final_website/">Default</option>
   </select>
 </div>
 <div class="form-group">

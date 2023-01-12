@@ -11,6 +11,7 @@ from threading import Thread
 import pandas as pd
 from pymongo import MongoClient
 import os
+import sheet
 import datetime as dt
 
 
@@ -60,7 +61,7 @@ def gen_frames():  # generate frame by frame from camera
                 capture=0
                 global now 
                 now = datetime.datetime.now()
-                p = os.path.sep.join(['/home/sanjiv/Reception_web/Final_website/static/shot','new.jpg'])
+                p = os.path.sep.join(['/home/kishore/Reception/Final_website/static/shot','new.jpg'])
                 global frames
                 frames=frame
              
@@ -163,8 +164,9 @@ def home():
 
         data_db={"Name":n2,"college name":clg_name,"entry_mode":entry,"Relation":relation,"Sex":sex,"Id_proof":Id_proof,"ph_number":ph_number,"purpose":purpose,"Department":dept,"MeetingPerson":meet_person,"NumberOfPersons":no_person}
         mycol.insert_one(data_db)
-        data_sheet=[[clg_name,n2,entry,relation,sex,Id_proof,ph_number,purpose,dept,meet_person,no_person]]
-        
+        data_sheet=[[clg_name,n2,entry,relation,sex,Id_proof,ph_number,purpose,dept,meet_person,no_person,current_time]]
+        new_id=sheet.create()
+        sheet.sheet_function(data_sheet,new_id)
 
 
 
@@ -216,13 +218,13 @@ def home():
         pdf_loc=str(df.iloc[-1,13])
         global n
         n=str(df.iloc[-1,7])
-        p = os.path.sep.join(['/home/sanjiv/Reception_web/Final_website/static/shot/',n+'.jpg'])
+        p = os.path.sep.join(['/home/kishore/Reception/Final_website/static/shot/',n+'.jpg'])
         cv2.imwrite(p, frames)
         img=str(df.iloc[-1,12])
         pdf.image(img+"/static/shot/"+n+".jpg", x = 95, y = 55, w = 40, h = 0, type = '', link = '')
         # TEXTFILE = open("input.csv", "w")
         # TEXTFILE.truncate()
-        pdf.output("/home/sanjiv/Reception_web/Final_website/static/shot/"+n+".pdf")
+        pdf.output("/home/kishore/Reception/Final_website/static/shot/"+n+".pdf")
         print("gujyfuyfyfcujycvyhfvgjhyvkhvkib")
         return redirect(url_for('pdfview'))
         # return render_template('result.html')
@@ -242,8 +244,8 @@ def pdfview():
 
 @app.route('/success', methods=['GET', 'POST'])
 def success():
-     os.remove("/home/sanjiv/Reception_web/Final_website/static/shot/"+n+".pdf")
-     os.remove("/home/sanjiv/Reception_web/Final_website/static/shot/"+n+".jpg")
+     os.remove("/home/kishore/Reception/Final_website/static/shot/"+n+".pdf")
+     os.remove("/home/kishore/Reception/Final_website/static/shot/"+n+".jpg")
      return render_template("success.html")
 
 @app.route('/start', methods=['GET', 'POST'])
@@ -275,7 +277,7 @@ def search_page():
 def result():
     html = data.to_html()
 #write html to file
-    text_file = open("/home/sanjiv/Reception_web/Final_website/templates/"+data.iloc[-1,1]+".html", "w")
+    text_file = open("/home/kishore/Reception/Final_website/templates/"+data.iloc[-1,1]+".html", "w")
     text_file.write(html)
     text_file.close()
     path= data.iloc[-1,1]+".html"
@@ -326,13 +328,13 @@ def oldpdf():
         pdf_loc=str(df.iloc[-1,13])
         global n
         n=str(df.iloc[-1,7])
-        p = os.path.sep.join(['/home/sanjiv/Reception_web/Final_website/static/shot/',n+'.jpg'])
+        p = os.path.sep.join(['/home/kishore/Reception/Final_website/static/',n+'.jpg'])
         cv2.imwrite(p, frames)
         img=str(df.iloc[-1,12])
         pdf.image(img+"/static/shot/"+n+".jpg", x = 95, y = 55, w = 40, h = 0, type = '', link = '')
         # TEXTFILE = open("input.csv", "w")
         # TEXTFILE.truncate()
-        pdf.output("/home/sanjiv/Reception_web/Final_website/static/shot/"+n+".pdf")
+        pdf.output("/home/kishore/Reception/Final_website/static/"+n+".pdf")
         # print("gujyfuyfyfcujycvyhfvgjhyvkhvkib")
         return redirect(url_for('pdfview'))
         # return render_template('result.html')
