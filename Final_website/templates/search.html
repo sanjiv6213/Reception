@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <form id="myform" method = "POST" action = "/search" enctype='application/json' > 
+    <div class="form-group">
+        <label for="inputState">Factor</label>
+        <select name="Factor" id = "Factor" class="form-control" onchange="inputValue(event)">
+          <option selected>Choose...</option>
+          <option value="Ph_no">Phone no</option>
+          <option value="Date">Date</option>
+          </select>
+        </div>
+
+    
+    <div class="form-group">
+    <label for="inputAddress">Details</label>
+    <input type="text" class="form-control" name="detail" placeholder="Enter detail" id = "detail"  onchange="inputValue(event)">
+    </div>
+        <button id="btn" onclick="inputValue(event)" style="background-color:#53760D;color:#D0F18F">SUBMIT</button>
+
+    </form>
+        <script>
+            function imageIsLoaded(e){localStorage.theImage = e.target.result;}
+            const input={"Factor":"","Detail":""}
+            function inputValue(event){
+                    input[event.target.id]=event.target.value
+                    console.log(JSON.stringify(input))
+            }
+        
+            document.querySelector("#btn").addEventListener('click',function(event){
+                    event.preventDefault();
+                    fetch("/search",{method:'post',body:JSON.stringify(input)}).then(res=>{
+                        alert("Form submitted")
+                        window.location.replace("/result")
+                    })
+            }) 
+            <script>
+        
+            
+        </script>  
+</html>
